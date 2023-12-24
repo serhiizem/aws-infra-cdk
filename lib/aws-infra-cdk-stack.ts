@@ -1,16 +1,18 @@
-import * as cdk from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import {CfnOutput, Stack, StackProps} from 'aws-cdk-lib';
+import {Construct} from 'constructs';
+import {Bucket, BucketEncryption} from "aws-cdk-lib/aws-s3";
 
-export class AwsInfraCdkStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+export class AwsInfraCdkStack extends Stack {
+    constructor(scope: Construct, id: string, props?: StackProps) {
+        super(scope, id, props);
 
-    // The code that defines your stack goes here
+        const bucket = new Bucket(this, 'DocumentsBucket', {
+            encryption: BucketEncryption.S3_MANAGED
+        });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'AwsInfraCdkQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
-  }
+        new CfnOutput(this, "DocumentsBucketNameExport", {
+            value: bucket.bucketName,
+            exportName: "DocumentsBucketName"
+        })
+    }
 }
