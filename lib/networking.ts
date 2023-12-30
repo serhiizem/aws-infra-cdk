@@ -2,12 +2,12 @@ import {Construct} from "constructs";
 import {IpAddresses, IVpc, SubnetType, Vpc} from "aws-cdk-lib/aws-ec2";
 
 interface NetworkingProps {
-    maxAzs: number
+    maxAzs: number;
 }
 
 export class Networking extends Construct {
 
-    public readonly vpc: IVpc
+    public readonly vpc: IVpc;
 
     constructor(scope: Construct, id: string, props: NetworkingProps) {
         super(scope, id);

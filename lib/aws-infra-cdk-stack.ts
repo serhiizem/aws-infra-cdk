@@ -14,7 +14,7 @@ export class AwsInfraCdkStack extends Stack {
         new CfnOutput(this, "DocumentsBucketNameExport", {
             value: bucket.bucketName,
             exportName: "DocumentsBucketName"
-        })
+        });
 
         const networkingStack = new Networking(this, "NetworkingConstruct", {
             maxAzs: 2
