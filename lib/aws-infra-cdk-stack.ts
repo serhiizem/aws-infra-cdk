@@ -1,4 +1,4 @@
-import {CfnOutput, Stack, StackProps} from 'aws-cdk-lib';
+import {CfnOutput, Stack, StackProps, Tags} from 'aws-cdk-lib';
 import {Construct} from 'constructs';
 import {Bucket, BucketEncryption} from "aws-cdk-lib/aws-s3";
 import {Networking} from "./networking";
@@ -16,8 +16,10 @@ export class AwsInfraCdkStack extends Stack {
             exportName: "DocumentsBucketName"
         })
 
-        new Networking(this, "NetworkingConstruct", {
+        const networkingStack = new Networking(this, "NetworkingConstruct", {
             maxAzs: 2
-        })
+        });
+
+        Tags.of(networkingStack).add("Module", "Networking");
     }
 }
