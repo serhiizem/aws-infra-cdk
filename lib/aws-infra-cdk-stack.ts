@@ -2,6 +2,7 @@ import {CfnOutput, Stack, StackProps, Tags} from 'aws-cdk-lib';
 import {Construct} from 'constructs';
 import {Bucket, BucketEncryption} from "aws-cdk-lib/aws-s3";
 import {Networking} from "./networking";
+import {DocumentManagementAPI} from "./api";
 
 export class AwsInfraCdkStack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {
@@ -21,5 +22,9 @@ export class AwsInfraCdkStack extends Stack {
         });
 
         Tags.of(networkingStack).add("Module", "Networking");
+
+        const api = new DocumentManagementAPI(this, 'DocumentManagementAPI')
+
+        Tags.of(api).add("Module", "API");
     }
 }
